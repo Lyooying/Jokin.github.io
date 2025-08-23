@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.time.format.DateTimeFormatter;
+import java.util.TimeZone;
 
 @Configuration
 public class JacksonConfig {
@@ -29,6 +30,8 @@ public class JacksonConfig {
         return new Jackson2ObjectMapperBuilder()
                 .serializers(LOCAL_DATETIME_SERIALIZER) // 注册自定义序列化器
                 .deserializers(LOCAL_DATETIME_DESERIALIZER) // 注册自定义反序列化器
-                .serializationInclusion(JsonInclude.Include.NON_NULL); // 忽略 null 值
+                .serializationInclusion(JsonInclude.Include.NON_NULL) // 忽略 null 值
+//                .timeZone(TimeZone.getDefault()); // 添加默认时区设置, 默认为操作系统的时区
+                .timeZone(TimeZone.getTimeZone("Asia/Shanghai")); // 明确指定东八区
     }
 }
